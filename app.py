@@ -1,5 +1,5 @@
-from flask import Flask, redirect,render_template,url_for,request
-from flask_sqlalchemy import SQLAlchemy 
+from flask import Flask, redirect,render_template,url_for,request, flash
+from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime
 
 app = Flask(__name__)
@@ -16,7 +16,7 @@ class Todo(db.Model):
 
     def __repr__(self):
         return '<Task %r>' % self.id
-        
+
 
 @app.route( '/', methods=['GET','POST'] )
 def home():
@@ -42,7 +42,7 @@ def delete(id):
         db.session.commit()
         return redirect('/')
     except:
-        return "There was a problem while deleting the Task" 
+        return "There was a problem while deleting the Task"
 
 
 @app.route('/update/<int:id>',methods=['GET','POST'])
@@ -54,11 +54,12 @@ def update(id):
             db.session.commit()
             return redirect('/')
         except:
-            return "There was a problem while updating your Task "
+            flash("There was a problem while updating your Task")
+            return redirect(f'/update/{task.id}')
     else:
-        return render_template('update.html',task=task)            
-        
+        return render_template('update.html',task=task)
+
 
 
 if __name__ == '__main__':
-    app.run(debug=True)    
+    app.run(debug=True)

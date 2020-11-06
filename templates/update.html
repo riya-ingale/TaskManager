@@ -11,6 +11,23 @@
 
 <h1>Task Manager</h1>
 
+                <p>
+                     <br>
+                  </p>
+                  <div>
+                     {% with messages = get_flashed_messages() %}
+                     {% if messages %}
+                     <div class = "flashes" style="color:#DC143C; text-align:center;">
+                     {% for message in messages %}
+                        <h4>{{ message }}</h4>
+                     {% endfor %}
+                     </div>
+                     {% endif %}
+                     {% endwith %}
+                  </div>
+                  <p>
+                     <br>
+                  </p>
 
 <div>
     <form method="POST", action="/update/{{task.id}}">
