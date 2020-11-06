@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+
+
+{% block head %}
+<title>Update Task</title>
+
+{% endblock %}
+
+
+{% block content %}
+
+<h1>Task Manager</h1>
+
+
+<div>
+    <form method="POST", action="/update/{{task.id}}">
+    <div class="input-group mb-3">
+        <input type="text" class="form-control" value="{{ task.content }}" aria-label="Task" aria-describedby="basic-addon2" name="content">
+        <div class="input-group-append">
+          <button class="btn btn-dark" type="submit">Update</button>
+        </div>
+    </div>
+    </form>
+</div>
+
+
+
+<!-- <div>
+<form method="POST", action="/update/{{task.id}}">
+    <div class="input-group mb-3">
+        <input type="text" class="form-control" value="{{ task.content }}" aria-label="Task" aria-describedby="basic-addon2" name="content">
+        <div class="input-group-append">
+          <button class="btn btn-outline-secondary" type="submit">Update</button>
+        </div>
+      </div>
+</form>
+</div> -->
+
+{% endblock %}

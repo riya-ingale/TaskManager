@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+
+{% block head %}
+<title>Task Manager</title>
+{% endblock %}
+
+{% block content %}
+
+<h1>Task Manager</h1>
+<br>
+
+<form method="POST", action="/">
+    <div class="input-group mb-3">
+        <input type="text" class="form-control" placeholder="Enter you Task" aria-label="Task" aria-describedby="basic-addon2" name="content">
+        <div class="input-group-append">
+          <button class="btn btn-dark"  type="submit">Add Task</button>
+        </div>
+      </div>
+</form>
+
+<div class="table">
+    <table class="table">
+        <thead class="thead-dark">
+        <tr>
+            <th>Task To do</th>
+            <th>Added on</th>
+            <th>Actions</th>
+        </tr>
+        </thead>
+        
+        {% for task in tasks %}
+        <tr>
+            <td>{{ task.content }}</td>
+            <td>{{ task.date_created.date() }}</td>
+            <td>
+                <a href="/delete/{{task.id}}">Done!</a>
+                <br>
+                <a href="/update/{{task.id}}">Update</a>
+            </td>
+        </tr>
+        {% endfor %}
+        
+    </table>
+</div>
+{% endblock %}
+
