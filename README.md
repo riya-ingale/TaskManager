@@ -1,7 +1,7 @@
 # TaskManager
 
 
-This is a simple Crud Application where you can - 
+This is a simple Crud Application in Python using Flask where you can - 
 
 <p></p>
 <h2>Add your Tasks</h2>
