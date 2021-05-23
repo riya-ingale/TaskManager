@@ -11,7 +11,6 @@ app.config['SECRET_KEY'] = os.urandom(24)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///task.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
-
 db = SQLAlchemy(app)
 
 
@@ -69,7 +68,6 @@ def signup():
     return render_template("signup.html")
 
 
-@app.route('/', methods=['POST', 'GET'])
 @app.route('/login', methods=['POST', 'GET'])
 def login():
     if request.method == "POST":
@@ -99,6 +97,7 @@ def logout():
     return redirect('/login')
 
 
+@app.route('/', methods=['POST', 'GET'])
 @app.route('/tasks', methods=['GET', 'POST'])
 @login_required
 def home():

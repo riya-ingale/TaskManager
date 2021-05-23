@@ -5,7 +5,6 @@
 {% endblock %}
 
 {% block content %}
-
 <h1>Task Manager</h1>
 <br>
 
@@ -13,9 +12,9 @@
     <div class="input-group mb-3">
         <input type="text" class="form-control" placeholder="Enter you Task" aria-label="Task" aria-describedby="basic-addon2" name="content">
         <div class="input-group-append">
-          <button class="btn btn-dark"  type="submit">Add Task</button>
+            <button class="btn btn-dark"  type="submit">Add Task</button>
         </div>
-      </div>
+    </div>
 </form>
 
     <table class="table">
@@ -34,23 +33,13 @@
             <td>
                 <a href="/delete/{{task.id}}">Done!</a>
                 <br>
-                <a href="/update/{{task.id}}">Update</a>
+                <a href="/update/{{task.id}}">Edit</a>
             </td>
         </tr>
         {% endfor %}
         
     </table>
-    <p><br></p>
-    {% with messages = get_flashed_messages() %}
-                 {% if messages %}
-                    <div class = "flashes" style="color: whitesmoke; text-align:center;">
-                      <h3>{{ messages[messages|length - 1] }}</h3>
-                       <!-- {% for message in messages %}
-                          <h4>{{ message }}</h4>
-                       {% endfor %}    -->
-                       </div>
-                 {% endif %}
-   {% endwith %}
+    <p><br></p>  
 
 {% endblock %}
 
