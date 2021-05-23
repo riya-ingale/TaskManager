@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Task Manager</title>
+    <link rel="stylesheet" href="../static/css/style.css"> 
+    <link href="https://fonts.googleapis.com/css2?family=Gentium+Basic:ital,wght@1,700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="bg">
+        <h1>Login</h1>
+
+        <div class="content">
+            <h2>Enter Details</h2>
+            <div class="form">
+                <form>
+                <div class="formname">
+                    <input type="text" name ="email" required>
+                    <label for="email" class="label-name">
+                        <span class="content-name">Email</span>
+                    </label>
+                </div>
+                <div class="formname">
+                    <input type="password" name ="password" required>
+                    <label for="password" class="label-name">
+                        <span class="content-name">Password</span>
+                    </label>
+                </div>
+                <button class=" btn btn1" formaction="/login" formmethod="POST" value="LOGIN">LOGIN</button>
+                
+            </form>
+            <button class=" btn btn1" value="SIGN UP"><a href="/signup" style="text-decoration: none; color: black;">SIGN UP</a></button>
+            </div>
+         </div>
+         <p><br></p>
+            {% with messages = get_flashed_messages() %}
+                        {% if messages %}
+                            <div class = "flashes" style="color: whitesmoke; text-align:center;">
+                            <h3>{{ messages[messages|length - 1] }}</h3>
+                            <!-- {% for message in messages %}
+                                <h4>{{ message }}</h4>
+                            {% endfor %}    -->
+                            <div>
+                        {% endif %}
+            {% endwith %}
+
+
+    </div>
+    
+</body>
+</html>

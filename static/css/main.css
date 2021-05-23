@@ -1,15 +1,20 @@
-body
-{
-    text-align: center;
-    margin:10%;
+body {
+  text-align: center;
+  margin: 10%;
 }
 
-a
-{
-    margin:4px;
-
+a {
+  margin: 4px;
 }
 
 h1 {
-    text-shadow: 0 0 3px grey;
-  }
+  text-shadow: 0 0 3px grey;
+}
+
+.table{  
+ background: rgb(240, 248, 255, 0.5);
+}
+
+.form-control{  
+    background: rgb(240, 248, 255, 0.5);
+   }

@@ -1,0 +1,320 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Gentium Basic", serif;
+}
+
+.bg {
+  width: 100%;
+  height: 100vh;
+  background-size: cover;
+  background-position: center;
+  position: relative;
+  overflow: auto;
+  background-image: url(https://images.pexels.com/photos/5717479/pexels-photo-5717479.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940);
+  background-repeat: no-repeat;
+  background-size:cover;
+}
+
+.bg h1 {
+  font-size: 250%;
+  margin-top: 1%;
+  text-align: center;
+  z-index: 3;
+  opacity: 0.7;
+  color: black;
+}
+
+/* FORM CSS */
+
+.content {
+  position: absolute;
+  left: 10%;
+  top: 30%;
+  width: 30%;
+  height: 70%;
+  background-color: rgb(240, 248, 255, 0.5);
+  overflow-y: auto;
+  overflow-x: hidden;
+  margin-bottom: 10%;
+}
+
+.content::-webkit-scrollbar {
+  width: 12px; /* width of the entire scrollbar */
+}
+.content::-webkit-scrollbar-track {
+  background: orange; /* color of the tracking area */
+}
+.content::-webkit-scrollbar-thumb {
+  background-color: #d3d3d3; /* color of the scroll thumb */
+  border-radius: 20px; /* roundness of the scroll thumb */
+  border: 3px solid orange; /* creates padding around scroll thumb */
+}
+
+h2 {
+  margin-top: 10px;
+  text-align: center;
+  color: #00008b;
+}
+
+.content .form {
+  position: relative;
+  left: 10%;
+  top: 5%;
+  width: 100%;
+}
+
+.content {
+  top: -400px;
+  animation: drop 1.5s ease forwards;
+}
+
+@keyframes drop {
+  0% {
+    opacity: 0;
+  }
+  70% {
+    transform: translateY(600px);
+  }
+  100% {
+    transform: translateY(500px);
+    opacity: 1;
+  }
+}
+
+.formname {
+  width: 50%;
+  position: relative;
+  height: 50px;
+  margin-bottom: 30px;
+  overflow: hidden;
+}
+
+.formname input {
+  width: 100%;
+  height: 100%;
+  padding-top: 20px;
+  border: none;
+  background: none;
+  outline: none;
+}
+
+input[type="date"]:in-range::-webkit-datetime-edit-year-field,
+input[type="date"]:in-range::-webkit-datetime-edit-month-field,
+input[type="date"]:in-range::-webkit-datetime-edit-day-field,
+input[type="date"]:in-range::-webkit-datetime-edit-text {
+  color: transparent;
+}
+
+input[type="time"]:in-range::-webkit-datetime-edit-hour-field,
+input[type="time"]:in-range::-webkit-datetime-edit-minute-field,
+input[type="time"]:in-range::-webkit-datetime-edit-second-field,
+input[type="time"]:in-range::-webkit-datetime-edit-text {
+  color: transparent;
+}
+
+.formname label {
+  position: absolute;
+  bottom: 0px;
+  left: 0%;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  border-bottom: 1px solid black;
+}
+
+.label-name span {
+  font-family: "Gentium Basic", serif;
+}
+
+.form label::after {
+  content: "";
+  position: absolute;
+  left: 0px;
+  bottom: -1px;
+  height: 100%;
+  width: 100%;
+  border-bottom: 3px solid #00008b;
+  transform: translateX(-100%);
+  transition: transform 0.5s ease;
+}
+
+.content-name {
+  position: absolute;
+  bottom: 5px;
+  left: 0px;
+  transition: all 0.5s ease;
+}
+
+.formname input:focus + .label-name .content-name,
+.formname input:valid + .label-name .content-name {
+  transform: translateY(-150%);
+  font-size: 14px;
+  color: #00008b;
+}
+
+.formname input:focus + .label-name::after,
+.formname input:valid + .label-name::after {
+  transform: translateX(0%);
+}
+
+.btn {
+  position: relative;
+  display: block;
+  width: 70%;
+  color: black;
+  font-size: 14px;
+  text-decoration: none;
+  text-align: center;
+  margin: 30px 0;
+  border: 2px solid #00008b;
+  padding: 14px 50px;
+  text-transform: uppercase;
+  overflow: hidden;
+  transition: all 1s ease;
+}
+
+.btn::before {
+  background: #00008b;
+  content: "";
+  width: 100%;
+  height: 100%;
+  transform: translate(-50%, -50%);
+  z-index: -1;
+  transition: all 0.6s ease;
+}
+
+.btn1::before {
+  width: 0;
+  height: 100%;
+}
+
+.btn1:hover::before {
+  width: 100%;
+}
+
+#back {
+  position: absolute;
+  top: 0%;
+  right: 0%;
+  width: 5%;
+}
+
+@media only screen and (max-width: 941px) {
+  .content {
+    position: relative;
+    left: 5%;
+    width: 50%;
+    height: 70%;
+    background-color: rgb(240, 248, 255, 0.5);
+    overflow-y: auto;
+    overflow-x: hidden;
+    margin-bottom: 20%;
+  }
+
+  #back {
+    position: absolute;
+    top: 0%;
+    right: 0%;
+    width: 10%;
+  }
+}
+
+@media only screen and (max-width: 884px) {
+  .content {
+    position: relative;
+    left: 5%;
+    width: 60%;
+    height: 70%;
+    background-color: rgb(240, 248, 255, 0.5);
+    overflow-y: auto;
+    overflow-x: hidden;
+    margin-bottom: 20%;
+  }
+  #back {
+    position: absolute;
+    top: 0%;
+    right: 0%;
+    width: 10%;
+  }
+}
+
+@media only screen and (max-width: 542px) {
+  .content {
+    position: relative;
+    left: 3%;
+    width: 90%;
+    height: 70%;
+    background-color: rgb(240, 248, 255, 0.5);
+    overflow-y: auto;
+    overflow-x: hidden;
+    margin-bottom: 20%;
+  }
+}
+
+/*CLOUD ANIMATION*/
+
+/* .clouds img{
+    width: 50px;
+    animation: cloud 7s linear infinite;
+    opacity: 0.5;
+}
+
+.clouds{
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    position: absolute;
+    bottom:-100px;
+}
+
+@keyframes cloud{
+    0%{
+        transform: translateY(0);
+        opacity: 0;
+    }
+    50%{
+        
+        opacity: 0.5;
+    }
+    70%{
+        
+        opacity: 0.5;
+    }
+    100%{
+        transform: translateY(-80vh);
+        opacity: 0;
+    }
+
+}
+
+.clouds img:nth-child(1)
+{
+    animation-delay: 2s;
+}
+.clouds img:nth-child(2)
+{
+    animation-delay: 1s;
+}
+.clouds img:nth-child(3)
+{
+    animation-delay: 3s;
+}
+.clouds img:nth-child(4)
+{
+    animation-delay: 4.5s;
+}
+.clouds img:nth-child(5)
+{
+    animation-delay: 3s;
+}
+.clouds img:nth-child(6)
+{
+    animation-delay: 6s;
+}
+.clouds img:nth-child(7)
+{
+    animation-delay: 7s;
+} */
