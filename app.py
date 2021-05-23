@@ -91,7 +91,6 @@ def login():
 
 
 @app.route('/logout')
-@login_required
 def logout():
     logout_user()
     flash("Successfully Logged out!")
@@ -118,7 +117,6 @@ def home():
 
 
 @app.route('/delete/<int:id>')
-@login_required
 def delete(id):
     task_delete = Todo.query.get_or_404(id)
     try:
@@ -130,7 +128,6 @@ def delete(id):
 
 
 @app.route('/update/<int:id>', methods=['GET', 'POST'])
-@login_required
 def update(id):
     task = Todo.query.get_or_404(id)
     if request.method == 'POST':
