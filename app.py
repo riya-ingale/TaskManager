@@ -99,7 +99,6 @@ def logout():
 
 @app.route('/', methods=['POST', 'GET'])
 @app.route('/tasks', methods=['GET', 'POST'])
-@login_required
 def home():
     if request.method == 'POST':
         task_content = request.form['content']
