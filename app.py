@@ -10,6 +10,7 @@ app = Flask(__name__)
 app.config['SECRET_KEY'] = os.urandom(24)
 app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get(
     'DATABASE_URL').replace('postgres://', 'postgresql://')
+# app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///task.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 db = SQLAlchemy(app)
@@ -60,10 +61,10 @@ def signup():
             db.session.add(new_user)
             db.session.commit()
 
-            flash("Sucessfully Registered!", "success")
+            flash("Sucessfully Registered!")
             return redirect('/login')
         else:
-            flash("Passwords don't match", "danger")
+            flash("Passwords don't match")
             return redirect("/signup")
 
     return render_template("signup.html")
@@ -78,14 +79,14 @@ def login():
 
         user = Users.query.filter_by(email=email).first()
         if not user:
-            flash("No such User found, Try Signing Up First", "warning")
+            flash("No such User found, Try Signing Up First")
             return redirect("/signup")
         if user:
             if check_password_hash(user.password, password):
                 login_user(user)
-                return redirect('/tasks')
+                return redirect('/')
             else:
-                flash("Incorrect password", "danger")
+                flash("Incorrect password")
                 return redirect("login")
     return render_template("login.html")
 
@@ -98,7 +99,6 @@ def logout():
 
 
 @app.route('/', methods=['POST', 'GET'])
-@app.route('/tasks', methods=['GET', 'POST'])
 @login_required
 def home():
     if request.method == 'POST':
@@ -107,7 +107,7 @@ def home():
         try:
             db.session.add(new_task)
             db.session.commit()
-            return redirect('/tasks')
+            return redirect('/')
         except:
             return "There was a problem while adding Your Task"
     else:
@@ -122,7 +122,7 @@ def delete(id):
     try:
         db.session.delete(task_delete)
         db.session.commit()
-        return redirect('/tasks')
+        return redirect('/')
     except:
         return "There was a problem while deleting the Task"
 
@@ -134,11 +134,12 @@ def update(id):
         task.content = request.form['content']
         try:
             db.session.commit()
-            return redirect('/tasks')
+            return redirect('/')
         except:
             flash("There was a problem while updating your Task")
             return redirect(f'/update/{task.id}')
     else:
+        # GET request
         return render_template('update.html', task=task)
 
 
