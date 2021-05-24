@@ -122,13 +122,11 @@ def home():
         if request.method == 'POST':
             task_content = request.form['content']
             new_task = Todo(content=task_content, user_id=g.user.id)
-            try:
-                db.session.add(new_task)
-                db.session.commit()
-                return redirect('/')
-            except:
-                return "There was a problem while adding Your Task"
+            db.session.add(new_task)
+            db.session.commit()
+            return redirect('/')
         else:
+            # GET request
             tasks = Todo.query.filter_by(
                 user_id=g.user.id).order_by(Todo.date_created)
             return render_template("index.html", tasks=tasks)
@@ -139,26 +137,19 @@ def home():
 
 @app.route('/delete/<int:id>')
 def delete(id):
-    task_delete = Todo.query.filter_by(id = id).first()
-    try:
-        db.session.delete(task_delete)
-        db.session.commit()
-        return redirect('/')
-    except:
-        return "There was a problem while deleting the Task"
+    task_delete = Todo.query.filter_by(id=id).first()
+    db.session.delete(task_delete)
+    db.session.commit()
+    return redirect('/')
 
 
 @app.route('/update/<int:id>', methods=['GET', 'POST'])
 def update(id):
-    task = Todo.query.filter_by(id = id).first()
+    task = Todo.query.filter_by(id=id).first()
     if request.method == 'POST':
         task.content = request.form['content']
-        try:
-            db.session.commit()
-            return redirect('/')
-        except:
-            flash("There was a problem while updating your Task")
-            return redirect(f'/update/{task.id}')
+        db.session.commit()
+        return redirect('/')
     else:
         # GET request
         return render_template('update.html', task=task)
