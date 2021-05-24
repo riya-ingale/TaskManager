@@ -40,17 +40,6 @@ def before_request():
         user = Users.query.filter_by(id=session['user']).first()
         g.user = user
 
-# login_manager = LoginManager()
-# login_manager.init_app(app)
-# login_manager.login_view = 'login'
-# login_manager.login_message = "You need to Login first"
-
-
-# @login_manager.user_loader
-# def load_user(user_id):
-#     return Users.query.get(int(user_id))
-
-
 @app.route('/signup', methods=['GET', 'POST'])
 def signup():
     if request.method == "POST":
@@ -93,19 +82,11 @@ def login():
         if user:
             if check_password_hash(user.password, password):
                 session['user'] = user.id
-                # login_user(user)
                 return redirect('/')
             else:
                 flash("Incorrect password")
                 return redirect("login")
     return render_template("login.html")
-
-
-# @app.route('/logout')
-# def logout():
-#     logout_user()
-#     flash("Successfully Logged out!")
-#     return redirect('/login')
 
 
 @app.route('/logout', methods=['POST', 'GET'])
@@ -116,7 +97,6 @@ def logout():
 
 
 @app.route('/', methods=['POST', 'GET'])
-# @login_required
 def home():
     if g.user:
         if request.method == 'POST':

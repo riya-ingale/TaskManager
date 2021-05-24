@@ -5,6 +5,7 @@
 {% endblock %}
 
 {% block content %}
+<p><br></p>
 <h1>Task Manager</h1>
 <br>
 
@@ -17,13 +18,19 @@
     </div>
 </form>
 
+<form align="right" name="form1" method="POST" action="/logout">
+    <label class="logoutLblPos">
+    <input name="submit2" type="submit" id="submit2" value="Logout" style="background: rgb(240, 248, 255, 0.5); color: red;">
+    </label>
+  </form>
+
     <table class="table">
         <thead class="thead-dark">
-        <tr>
-            <th>Task To do</th>
-            <th>Added on</th>
-            <th>Actions</th>
-        </tr>
+            <tr>
+                <th>Task To do</th>
+                <th>Added on</th>
+                <th>Actions</th>
+            </tr>
         </thead>
         
         {% for task in tasks %}

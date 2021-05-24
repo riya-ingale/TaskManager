@@ -18,3 +18,9 @@ h1 {
 .form-control {
   background: rgb(240, 248, 255, 0.5);
 }
+
+.logoutLblPos {
+  position: fixed;
+  right: 10px;
+  top: 10px;
+}
