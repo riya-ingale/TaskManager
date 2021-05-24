@@ -1,5 +1,6 @@
 from flask import Flask, redirect, render_template, url_for, request, flash
 from flask_sqlalchemy import SQLAlchemy
+from flask import session, g
 from datetime import datetime
 from flask_login import LoginManager, UserMixin, login_user, login_required, logout_user, current_user
 from werkzeug.security import generate_password_hash, check_password_hash
@@ -32,15 +33,22 @@ class Todo(db.Model):
         return '<Task %r>' % self.id
 
 
-login_manager = LoginManager()
-login_manager.init_app(app)
-login_manager.login_view = 'login'
-login_manager.login_message = "You need to Login first"
+@app.before_request
+def before_request():
+    g.user = None
+    if 'user' in session:
+        user = Users.query.filter_by(id=session['user']).first()
+        g.user = user
+
+# login_manager = LoginManager()
+# login_manager.init_app(app)
+# login_manager.login_view = 'login'
+# login_manager.login_message = "You need to Login first"
 
 
-@login_manager.user_loader
-def load_user(user_id):
-    return Users.query.get(int(user_id))
+# @login_manager.user_loader
+# def load_user(user_id):
+#     return Users.query.get(int(user_id))
 
 
 @app.route('/signup', methods=['GET', 'POST'])
@@ -73,7 +81,8 @@ def signup():
 @app.route('/login', methods=['POST', 'GET'])
 def login():
     if request.method == "POST":
-        logout_user()
+        session.pop('user', None)
+        # logout_user()
         email = request.form.get('email')
         password = request.form.get('password')
 
@@ -83,7 +92,8 @@ def login():
             return redirect("/signup")
         if user:
             if check_password_hash(user.password, password):
-                login_user(user)
+                session['user'] = user.id
+                # login_user(user)
                 return redirect('/')
             else:
                 flash("Incorrect password")
@@ -91,29 +101,40 @@ def login():
     return render_template("login.html")
 
 
-@app.route('/logout')
+# @app.route('/logout')
+# def logout():
+#     logout_user()
+#     flash("Successfully Logged out!")
+#     return redirect('/login')
+
+
+@app.route('/logout', methods=['POST', 'GET'])
 def logout():
-    logout_user()
-    flash("Successfully Logged out!")
-    return redirect('/login')
+    session.pop('user', None)
+    flash("Sucessfully Logged Out")
+    return render_template('login.html')
 
 
 @app.route('/', methods=['POST', 'GET'])
-@login_required
+# @login_required
 def home():
-    if request.method == 'POST':
-        task_content = request.form['content']
-        new_task = Todo(content=task_content, user_id=current_user.id)
-        try:
-            db.session.add(new_task)
-            db.session.commit()
-            return redirect('/')
-        except:
-            return "There was a problem while adding Your Task"
+    if g.user:
+        if request.method == 'POST':
+            task_content = request.form['content']
+            new_task = Todo(content=task_content, user_id=g.user.id)
+            try:
+                db.session.add(new_task)
+                db.session.commit()
+                return redirect('/')
+            except:
+                return "There was a problem while adding Your Task"
+        else:
+            tasks = Todo.query.filter_by(
+                user_id=g.user.id).order_by(Todo.date_created)
+            return render_template("index.html", tasks=tasks)
     else:
-        tasks = Todo.query.filter_by(
-            user_id=current_user.id).order_by(Todo.date_created)
-        return render_template("index.html", tasks=tasks)
+        flash("You need to Login First")
+        return redirect('/login')
 
 
 @app.route('/delete/<int:id>')
