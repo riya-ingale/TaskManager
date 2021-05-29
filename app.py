@@ -33,14 +33,15 @@ class Todo(db.Model):
         return '<Task %r>' % self.id
 
 
-@app.before_request
+@ app.before_request
 def before_request():
     g.user = None
     if 'user' in session:
         user = Users.query.filter_by(id=session['user']).first()
         g.user = user
 
-@app.route('/signup', methods=['GET', 'POST'])
+
+@ app.route('/signup', methods=['GET', 'POST'])
 def signup():
     if request.method == "POST":
         email = request.form['email']
@@ -67,7 +68,7 @@ def signup():
     return render_template("signup.html")
 
 
-@app.route('/login', methods=['POST', 'GET'])
+@ app.route('/login', methods=['POST', 'GET'])
 def login():
     if request.method == "POST":
         session.pop('user', None)
@@ -89,14 +90,14 @@ def login():
     return render_template("login.html")
 
 
-@app.route('/logout', methods=['POST', 'GET'])
+@ app.route('/logout', methods=['POST', 'GET'])
 def logout():
     session.pop('user', None)
     flash("Sucessfully Logged Out")
     return render_template('login.html')
 
 
-@app.route('/', methods=['POST', 'GET'])
+@ app.route('/', methods=['POST', 'GET'])
 def home():
     if g.user:
         if request.method == 'POST':
@@ -115,7 +116,7 @@ def home():
         return redirect('/login')
 
 
-@app.route('/delete/<int:id>')
+@ app.route('/delete/<int:id>')
 def delete(id):
     task_delete = Todo.query.filter_by(id=id).first()
     db.session.delete(task_delete)
@@ -123,7 +124,7 @@ def delete(id):
     return redirect('/')
 
 
-@app.route('/update/<int:id>', methods=['GET', 'POST'])
+@ app.route('/update/<int:id>', methods=['GET', 'POST'])
 def update(id):
     task = Todo.query.filter_by(id=id).first()
     if request.method == 'POST':

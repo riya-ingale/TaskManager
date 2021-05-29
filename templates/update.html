@@ -32,7 +32,7 @@
 <div>
     <form method="POST", action="/update/{{task.id}}">
     <div class="input-group mb-3">
-        <input type="text" class="form-control" value="{{ task.content }}" aria-label="Task" aria-describedby="basic-addon2" name="content">
+        <input type="text" class="form-control" value="{{ task.content }}" aria-label="Task" aria-describedby="basic-addon2" name="content" minlength="1">
         <div class="input-group-append">
           <button class="btn btn-dark" type="submit">Update</button>
         </div>

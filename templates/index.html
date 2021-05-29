@@ -11,7 +11,7 @@
 
 <form method="POST", action="/">
     <div class="input-group mb-3">
-        <input type="text" class="form-control" placeholder="Enter you Task" aria-label="Task" aria-describedby="basic-addon2" name="content">
+        <input type="text" class="form-control" placeholder="Enter you Task" aria-label="Task" aria-describedby="basic-addon2" name="content" minlength="1">
         <div class="input-group-append">
             <button class="btn btn-dark" type="submit">Add Task</button>
         </div>
@@ -28,7 +28,7 @@
         <thead class="thead-dark">
             <tr>
                 <th>Task To do</th>
-                <th>Added on</th>
+                <th>Added On</th>
                 <th>Actions</th>
             </tr>
         </thead>
@@ -38,9 +38,9 @@
             <td>{{ task.content }}</td>
             <td>{{ task.date_created.date() }}</td>
             <td>
-                <a href="/delete/{{task.id}}">Done!</a>
+                <a style="color: black;" href="/delete/{{task.id}}">Done!</a>
                 <br>
-                <a href="/update/{{task.id}}">Edit</a>
+                <a style="color: black;" href="/update/{{task.id}}">Edit</a>
             </td>
         </tr>
         {% endfor %}
